@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
     public float forwardForce = 2000f;
     public float sidewaysForce = 500f;
 
-
     void FixedUpdate()
     {
         if (Input.GetKey("w"))
@@ -19,11 +18,16 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKey("a"))
         {
-            rbPlayer.AddForce(-sidewaysForce * Time.deltaTime, 0, 0);
+            rbPlayer.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
         if (Input.GetKey("d"))
         {
-            rbPlayer.AddForce(sidewaysForce * Time.deltaTime, 0, 0);
+            rbPlayer.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+        }
+
+        if (rbPlayer.position.y < -1f)
+        {
+            FindObjectOfType<GameManager>().EndGame();
         }
     }
 }
